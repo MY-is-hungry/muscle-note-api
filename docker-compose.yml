@@ -1,0 +1,32 @@
+version: "3.7"
+
+services:
+  db:
+    image: mysql:5.7
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --default-time-zone=Asia/Tokyo
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: app_development
+      MYSQL_PASSWORD: password
+    ports:
+      - 4306:3306
+    volumes:
+      - mysql-db:/var/lib/mysql
+
+  api:
+    build: ./api
+    depends_on:
+      - db
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    ports:
+      - 3000:3000
+    volumes:
+      - type: bind
+        source: "./api"
+        target: "/api"
+    tty: true
+    stdin_open: true
+
+volumes:
+  mysql-db:
+    driver: local
