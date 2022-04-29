@@ -23,3 +23,4 @@ Things you may want to cover:
 
 * ...
 # muscle-note-api
+# muscle-note-front
