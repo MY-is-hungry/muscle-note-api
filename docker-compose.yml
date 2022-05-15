@@ -9,12 +9,12 @@ services:
       MYSQL_DATABASE: app_development
       MYSQL_PASSWORD: password
     ports:
-      - 4306:3306
+      - 3306:3306
     volumes:
       - mysql-db:/var/lib/mysql
 
   api:
-    build: ./api
+    build: .
     depends_on:
       - db
     command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
@@ -22,8 +22,8 @@ services:
       - 3000:3000
     volumes:
       - type: bind
-        source: "./api"
-        target: "/api"
+        source: .
+        target: /api
     tty: true
     stdin_open: true
 
