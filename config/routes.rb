@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   namespace 'api' do
     namespace 'v1' do
-      get "/users", to: "users#hello"
+      resources :users, only: [:show, :create]
     end
   end
 end
