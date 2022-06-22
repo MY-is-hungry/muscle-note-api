@@ -3,9 +3,9 @@ class CreateTrainingSets < ActiveRecord::Migration[6.1]
     create_table :training_sets do |t|
       t.integer :sets
       t.integer :reps
-      t.decimal :volume
+      t.integer :volume
       t.text :note
-      t.references :record
+      t.references :event_record
 
       t.timestamps
     end
