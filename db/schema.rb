@@ -13,7 +13,7 @@
 ActiveRecord::Schema.define(version: 2022_06_22_013916) do
 
   create_table "categories", charset: "utf8mb4", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
     t.bigint "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -56,8 +56,10 @@ ActiveRecord::Schema.define(version: 2022_06_22_013916) do
 
   create_table "options", charset: "utf8mb4", force: :cascade do |t|
     t.string "background_image"
+    t.bigint "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_options_on_user_id"
   end
 
   create_table "tags", charset: "utf8mb4", force: :cascade do |t|
@@ -88,7 +90,7 @@ ActiveRecord::Schema.define(version: 2022_06_22_013916) do
   end
 
   create_table "training_sets", charset: "utf8mb4", force: :cascade do |t|
-    t.integer "sets"
+    t.integer "weight"
     t.integer "reps"
     t.integer "volume"
     t.text "note"
