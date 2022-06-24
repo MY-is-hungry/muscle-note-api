@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   namespace 'api' do
     namespace 'v1' do
       resources :users, only: [:show, :create]
+
+      get 'monthly_records', to: 'monthly_records#show'
     end
   end
 end

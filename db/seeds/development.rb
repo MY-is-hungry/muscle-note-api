@@ -11,7 +11,6 @@ def seed_attributes
   event_notes = ['フォーム意識', 'いつもより重く感じた', '重量意識']
   set_notes = ['フォーム崩れあり', 'チートあり', '余裕あり']
 
-
   {
     category: [
       {name: '胸', user_id: user.id}, 
@@ -30,10 +29,10 @@ def seed_attributes
       {name: 'サイドレイズ', category_id: 6, user_id: user.id}, 
     ],
     daily_record: [
-      {note: daily_notes[rand(0..2)], recorded_on: Date.today.days_ago(2), user_id: user.id},
-      {note: daily_notes[rand(0..2)], recorded_on: Date.today.days_ago(5), user_id: user.id}, 
-      {note: daily_notes[rand(0..2)], recorded_on: Date.today.days_ago(6), user_id: user.id}, 
       {note: daily_notes[rand(0..2)], recorded_on: Date.today.days_ago(8), user_id: user.id}, 
+      {note: daily_notes[rand(0..2)], recorded_on: Date.today.days_ago(6), user_id: user.id}, 
+      {note: daily_notes[rand(0..2)], recorded_on: Date.today.days_ago(5), user_id: user.id}, 
+      {note: daily_notes[rand(0..2)], recorded_on: Date.today.days_ago(2), user_id: user.id},
       {note: daily_notes[rand(0..2)], recorded_on: Date.today.days_since(3), user_id: user.id}, 
     ],
     event_record: [
