@@ -7,7 +7,7 @@ class Api::V1::UsersController < ApplicationController
   def create
     raise 'アカウントの作成に失敗しました。もう一度お試しください。' if params[:user][:fb_uid].blank?
     user = User.find_or_create_by(user_params)
-    return render json: { user: user }
+    return render Response.success(user)
   end
 
   private
