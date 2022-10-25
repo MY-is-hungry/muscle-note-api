@@ -1,9 +1,9 @@
 class CreateDailyRecords < ActiveRecord::Migration[6.1]
   def change
     create_table :daily_records do |t|
-      t.text :note
+      t.text :memo
       t.date :recorded_on, null: false
-      t.references :user
+      t.text :user_id, null: false
 
       t.timestamps
     end

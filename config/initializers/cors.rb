@@ -18,7 +18,7 @@ else
   Rails.application.config.middleware.insert_before 0, Rack::Cors do
     allow do
       # origins 'http://localhost:19000', 'http://localhost:19001', 'http://localhost:19002', 'localhost:19000', 'localhost:19001', 'localhost:19002'
-      # TODO: アクセスを全て許可してしまっているため、修正が必要。 実機からのアクセスには、IPを直接入れなければならないため、その対応として一時的に全許可にしている。 
+      # TODO: アクセスを全て許可してしまっているため修正が必要。 実機からのアクセスにはIPを直接入れなければならないため、その対応として一時的に全許可にしている。
       origins "*"
 
       resource '*',

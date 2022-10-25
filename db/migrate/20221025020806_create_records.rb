@@ -1,7 +1,7 @@
-class CreateEventRecords < ActiveRecord::Migration[6.1]
+class CreateRecords < ActiveRecord::Migration[6.1]
   def change
-    create_table :event_records do |t|
-      t.text :note
+    create_table :records do |t|
+      t.text :memo
       t.integer :volume
       t.date :recorded_on, null: false
       t.references :event

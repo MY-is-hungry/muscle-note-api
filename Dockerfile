@@ -2,7 +2,7 @@ FROM ruby:3.1.1
 
 ENV APP_PATH /api
 
-RUN apt-get update -qq && apt-get install -y default-mysql-client
+RUN apt-get update -qq && apt-get install -y default-mysql-client && apt-get install -y vim
 
 # Node.js LTS (v16.x)
 RUN curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - && apt-get install -y nodejs

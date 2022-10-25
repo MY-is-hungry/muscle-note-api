@@ -4,7 +4,7 @@ class CreateEvents < ActiveRecord::Migration[6.1]
       t.string :name, null: false
       t.integer :order
       t.integer :general_order
-      t.references :user
+      t.text :user_id, null: false
       t.references :category
 
       t.timestamps
