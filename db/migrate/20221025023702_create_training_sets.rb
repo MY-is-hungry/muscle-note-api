@@ -4,8 +4,8 @@ class CreateTrainingSets < ActiveRecord::Migration[6.1]
       t.integer :weight
       t.integer :reps
       t.integer :volume
-      t.text :note
-      t.references :event_record
+      t.text :memo
+      t.references :record
 
       t.timestamps
     end
