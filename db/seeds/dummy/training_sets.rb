@@ -1,19 +1,23 @@
-def seed_attributes
-  set_memos = ['フォーム崩れあり', 'チートあり', '余裕あり']
+def set_constant
+  weights = [40, 50, 60, 70, 80, 90, 100]
+  reps = [5, 8, 10, 12, 15, 20]
+  set_notes = ['フォーム崩れあり', 'チートあり', '余裕あり']
+  return weights, reps, set_notes
+end
 
-  {
-    set: [
-      {memo: set_memos.sample, weight: 50, reps: 12},
-      {memo: set_memos.sample, weight: 60, reps: 12},
-      {memo: set_memos.sample, weight: 70, reps: 12},
-    ],
+def add_sets_to_record(set_count: 3)
+  weights, reps, set_notes = set_constant
+  records = Record.all
+
+  records.each { |record|
+    set_attrs = [*1..set_count].map {
+      weight, rep = weights.sample, reps.sample
+      { weight: weight, reps: rep, volume: weight * rep}
+    }
+    sets = record.training_sets.build(set_attrs)
+    sets.each { _1.build_note(content: set_notes.sample) }
+    record.save!
   }
 end
 
-records = Record.all
-
-records.each { |record|
-  formatted_attributes = seed_attributes[:set].map { _1.merge({volume: _1[:weight] * _1[:reps]}) }
-  sets = record.training_sets.create(formatted_attributes)
-  record.update(volume: sets.sum {_1.volume})
-}
+add_sets_to_record
