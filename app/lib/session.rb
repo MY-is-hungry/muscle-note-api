@@ -6,7 +6,7 @@ module Session
   end
 
   def set_current_user_id
-    token, options = token_and_options(request)
+    token, _options = token_and_options(request)
     raise Api::Error::TokenUnauthorized if token.blank?
     @current_user_id = token
   end
