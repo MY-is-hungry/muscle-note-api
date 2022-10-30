@@ -1,9 +1,9 @@
 class CreateEventRecords < ActiveRecord::Migration[6.1]
   def change
     create_table :event_records do |t|
-      t.date :first_recorded_on, null: false
-      t.text :user_id, null: false
-      t.references :event, null: false
+      t.datetime :recorded_at, null: false
+      t.string :user_id, null: false
+      t.references :event
 
       t.timestamps
     end
