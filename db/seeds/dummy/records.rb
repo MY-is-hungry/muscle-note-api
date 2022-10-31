@@ -5,12 +5,12 @@ def set_constant
   return weights, reps, record_notes
 end
 
-def add_sets_to_event_record(set_count: 3)
+def add_sets_to_event_record
   weights, reps, record_notes = set_constant
   ev_records = EventRecord.all
 
   ev_records.each { |ev_record|
-    set_attrs = [*1..set_count].map {
+    set_attrs = [*1..rand(3..5)].map {
       weight, rep = weights.sample, reps.sample
       { weight: weight, reps: rep, volume: weight * rep}
     }

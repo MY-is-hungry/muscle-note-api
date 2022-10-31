@@ -9,14 +9,13 @@ end
 def create_daily_record(day_count: 5, id: ENV['DEV_USER_ID'])
   # daily_notes = ['最高のコンディションだった', 'まずまずのコンディションだった', 'イマイチなコンディションだった']
   record_notes = ['フォーム意識', 'いつもより重く感じた', '重量意識']
-  events = Event.all.sample(3)
+  events = Event.all
 
   [*1..day_count].map do |i|
     record_time = random_datetime
-    events.each do |event|
-      ev_record = EventRecord.find_or_initialize_by(user_id: id, recorded_at: record_time, event_id: event.id)
-      # record = ev_record.records.build(recorded_at: record_time)
-      # record.build_note(content: record_notes.sample)
+    events.sample(3).each do |event|
+      ev_record = EventRecord.find_or_initialize_by(user_id: id, event_id: event.id)
+      ev_record.recorded_at ||= record_time
       ev_record.save!
       record_time += 1.minute
     end
