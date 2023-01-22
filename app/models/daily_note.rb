@@ -1,0 +1,2 @@
+class DailyNote < ApplicationRecord
+end

@@ -1,23 +1,19 @@
-def set_constant
-  weights = [40, 50, 60, 70, 80, 90, 100]
-  reps = [5, 8, 10, 12, 15, 20]
-  record_notes = ['フォーム崩れあり', 'チートあり', '余裕あり']
-  return weights, reps, record_notes
+id = ENV['DEV_USER_ID']
+
+weight_list = [40, 50, 60, 70, 80, 90, 100]
+rep_list = [5, 8, 10, 12, 15, 20]
+# TODO: Note関連付け追加
+note_list = [
+  'フォーム崩れあり', 'チートあり', '余裕あり', '狂人による妨害', '美女が現れ奮起',
+  'マシン待ちの人の視線が気になりインターバルが少ない',
+  'なぜ髪のセットが上手な男性美容師は存在しないのか、はたまた自分のセンスが悪いのか、その他の可能性があるのか、と思考が巡りフォーム崩れ',
+  '自室の小窓に適したサイズのカーテンが見つからず気分が落ち込み気味',
+]
+
+timezone_from = Time.zone.parse('2023-01-01 00:00:00')
+timezone_to   = Time.zone.parse('2023-12-31 00:00:00')
+
+100.times do |i|
+  args = { weight: weight_list.sample, rep: rep_list.sample, start_at: rand(timezone_from..timezone_to) }
+  rand(1..5).times { Record.create!(user_id: id, **args) }
 end
-
-def add_sets_to_event_record
-  weights, reps, record_notes = set_constant
-  ev_records = EventRecord.all
-
-  ev_records.each { |ev_record|
-    set_attrs = [*1..rand(3..5)].map {
-      weight, rep = weights.sample, reps.sample
-      { weight: weight, reps: rep, volume: weight * rep}
-    }
-    records = ev_record.records.build(set_attrs)
-    records.each { _1.build_note(content: record_notes.sample) }
-    ev_record.save!
-  }
-end
-
-add_sets_to_event_record
