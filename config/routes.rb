@@ -5,7 +5,7 @@ Rails.application.routes.draw do
       resources :exercises,  only: [:index] do
         get :with_records, on: :collection
       end
-      resources :records,    only: [:index]
+      resources :records,    only: [:index, :create]
     end
   end
 end

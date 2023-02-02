@@ -39,9 +39,10 @@ ActiveRecord::Schema.define(version: 2023_01_22_114915) do
     t.text "content", null: false
     t.bigint "resource_id", null: false
     t.string "resource_kind", null: false
+    t.string "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["resource_kind"], name: "idx_unique", unique: true
+    t.index ["resource_kind", "resource_id"], name: "idx_note_unique", unique: true
   end
 
   create_table "record_tags", charset: "utf8mb4", force: :cascade do |t|
@@ -58,7 +59,7 @@ ActiveRecord::Schema.define(version: 2023_01_22_114915) do
     t.integer "weight"
     t.integer "rep"
     t.bigint "exercise_id"
-    t.datetime "start_at"
+    t.date "executed_on", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["exercise_id"], name: "index_records_on_exercise_id"
