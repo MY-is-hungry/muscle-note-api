@@ -11,9 +11,9 @@ class Api::V1::RecordsController < Api::V1::BaseController
       cur_time = Time.current
       case params[:type]
       when 'monthly'
-        { start_at: cur_time.beginning_of_month..cur_time.end_of_month }
+        { executed_on: cur_time.beginning_of_month..cur_time.end_of_month }
       when 'daily'
-        { start_at: cur_time.beginning_of_day..cur_time.end_of_day }
+        { executed_on: cur_time.beginning_of_day..cur_time.end_of_day }
       else
         {}
       end
