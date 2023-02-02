@@ -15,6 +15,6 @@ timezone_to   = Time.zone.parse('2023-12-31 00:00:00')
 
 exercises = Exercise.all
 100.times do |i|
-  args = { weight: weight_list.sample, rep: rep_list.sample, start_at: rand(timezone_from..timezone_to), exercise_id: exercises.sample.id }
+  args = { weight: weight_list.sample, rep: rep_list.sample, executed_on: rand(timezone_from..timezone_to), exercise_id: exercises.sample.id }
   rand(1..5).times { Record.create!(user_id: id, **args) }
 end

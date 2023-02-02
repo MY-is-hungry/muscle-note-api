@@ -5,7 +5,7 @@ class CreateRecords < ActiveRecord::Migration[6.1]
       t.integer :weight
       t.integer :rep
       t.references :exercise
-      t.datetime :start_at
+      t.date :executed_on, null: false
 
       t.timestamps
     end
