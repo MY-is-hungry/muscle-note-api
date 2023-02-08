@@ -1,7 +1,7 @@
 class CreateRecords < ActiveRecord::Migration[6.1]
   def change
     create_table :records do |t|
-      t.text :user_id, null: false
+      t.string :user_id, null: false, limit: 48
       t.integer :weight
       t.integer :rep
       t.references :exercise
