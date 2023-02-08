@@ -14,22 +14,24 @@ ActiveRecord::Schema.define(version: 2023_01_22_114915) do
 
   create_table "categories", charset: "utf8mb4", force: :cascade do |t|
     t.string "name", null: false
-    t.string "user_id", null: false
+    t.string "user_id", limit: 48, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "daily_notes", charset: "utf8mb4", force: :cascade do |t|
     t.text "content", null: false
-    t.text "user_id", null: false
+    t.string "user_id", limit: 48, null: false
+    t.date "recorded_on", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id", "recorded_on"], name: "idx_daily_note_unique", unique: true
   end
 
   create_table "exercises", charset: "utf8mb4", force: :cascade do |t|
     t.string "name", null: false
     t.bigint "category_id"
-    t.text "user_id", null: false
+    t.string "user_id", limit: 48, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["category_id"], name: "index_exercises_on_category_id"
@@ -39,7 +41,7 @@ ActiveRecord::Schema.define(version: 2023_01_22_114915) do
     t.text "content", null: false
     t.bigint "resource_id", null: false
     t.string "resource_kind", null: false
-    t.string "user_id", null: false
+    t.string "user_id", limit: 48, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["resource_kind", "resource_id"], name: "idx_note_unique", unique: true
@@ -55,7 +57,7 @@ ActiveRecord::Schema.define(version: 2023_01_22_114915) do
   end
 
   create_table "records", charset: "utf8mb4", force: :cascade do |t|
-    t.text "user_id", null: false
+    t.string "user_id", limit: 48, null: false
     t.integer "weight"
     t.integer "rep"
     t.bigint "exercise_id"
@@ -67,7 +69,7 @@ ActiveRecord::Schema.define(version: 2023_01_22_114915) do
 
   create_table "tags", charset: "utf8mb4", force: :cascade do |t|
     t.string "name", null: false
-    t.text "user_id"
+    t.string "user_id", limit: 48, null: false
     t.string "color"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
