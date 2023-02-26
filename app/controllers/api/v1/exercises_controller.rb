@@ -1,21 +1,33 @@
 class Api::V1::ExercisesController < Api::V1::BaseController
 
+  # TODO: 全体的に強引に値を作っているため、要リファクタリング
   def with_records
-    records = Record.where(user_id: @current_user_id, **selection_range)
+    @date = params[:date].to_s ? Date.parse(params[:date]) : Date.today
+    records = selection_range_records
     exercise_ids = records.pluck(:exercise_id).uniq
-    exercises = Exercise.where(id: exercise_ids)
-    render json: exercises, each_serializer: Exercise::RecordSerializer
+    @exercises = Exercise.where(id: exercise_ids)
+    sort_json = sort_record(exercises_json)
+    render json: sort_json
   end
 
   private
 
-    def selection_range
-      time = params[:date].to_s ? Time.parse(params[:date]) : Time.current
+    def exercises_json
+      ActiveModelSerializers::SerializableResource.new(
+        @exercises, each_serializer: Exercise::RecordSerializer, date: @date, date_type: params[:type], adapter: :json
+      ).serializable_hash
+    end
+
+    def sort_record(json)
+      json[:exercises].sort_by{ |ex| ex[:records].first["created_at"] }
+    end
+
+    def selection_range_records
       case params[:type]
       when 'monthly'
-        { executed_on: time.beginning_of_month..time.end_of_month }
+        Record.monthly_where(@date, @current_user_id)
       when 'daily'
-        { executed_on: time.beginning_of_day..time.end_of_day }
+        Record.daily_where(@date, @current_user_id)
       else
         {}
       end

@@ -29,7 +29,7 @@ class Api::V1::RecordsController < Api::V1::BaseController
       when 'monthly'
         { executed_on: cur_time.beginning_of_month..cur_time.end_of_month }
       when 'daily'
-        { executed_on: cur_time.beginning_of_day..cur_time.end_of_day }
+        { executed_on: cur_time }
       else
         {}
       end
