@@ -18,7 +18,7 @@ class Api::V1::RecordsController < Api::V1::BaseController
         note.save! if note.content.present?
       end
     end
-    render status: 200
+    render status: :ok
   end
 
   private
@@ -27,7 +27,7 @@ class Api::V1::RecordsController < Api::V1::BaseController
       cur_time = Time.current
       case params[:type]
       when 'monthly'
-        { executed_on: cur_time.beginning_of_month..cur_time.end_of_month }
+        { executed_on: cur_time.all_month }
       when 'daily'
         { executed_on: cur_time }
       else
