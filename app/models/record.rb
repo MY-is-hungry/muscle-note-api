@@ -5,7 +5,7 @@ class Record < ApplicationRecord
   validates :user_id, presence: true, length: { maximum: 48 }
 
   scope :daily_where, -> (date, user_id) { where(user_id: user_id, executed_on: date) }
-  scope :monthly_where, -> (date, user_id) { where(user_id: user_id, executed_on: date.beginning_of_month..date.end_of_month) }
+  scope :monthly_where, -> (date, user_id) { where(user_id: user_id, executed_on: date.all_month) }
 
   def volume
     (weight && rep) ? weight * rep : 0

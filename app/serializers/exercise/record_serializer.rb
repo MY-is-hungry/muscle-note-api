@@ -17,7 +17,7 @@ class Exercise::RecordSerializer < ExerciseSerializer
     def selection_range(date, type)
       case type
       when 'monthly'
-        { executed_on: date.beginning_of_month..date.end_of_month, exercise_id: object.id }
+        { executed_on: date.all_month, exercise_id: object.id }
       when 'daily'
         { executed_on: date, exercise_id: object.id }
       else
