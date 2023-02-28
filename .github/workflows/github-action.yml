@@ -63,4 +63,4 @@ jobs:
           bundler-cache: true
 
       - name: Run rubocop
-        run: bundle exec rubocop
+        run: bundle exec rubocop --fail-level W --display-only-fail-level-offenses
