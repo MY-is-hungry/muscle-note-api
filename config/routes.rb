@@ -7,5 +7,7 @@ Rails.application.routes.draw do
       end
       resources :records,    only: [:index, :create]
     end
+
   end
+  get :health_check, to: 'health_check#index'
 end
