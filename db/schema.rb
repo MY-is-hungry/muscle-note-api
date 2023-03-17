@@ -10,39 +10,41 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_10_25_023856) do
+ActiveRecord::Schema.define(version: 2023_01_22_114915) do
 
   create_table "categories", charset: "utf8mb4", force: :cascade do |t|
     t.string "name", null: false
-    t.string "user_id", null: false
+    t.string "user_id", limit: 48, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "event_records", charset: "utf8mb4", force: :cascade do |t|
-    t.datetime "recorded_at", null: false
-    t.string "user_id", null: false
-    t.bigint "event_id"
+  create_table "daily_notes", charset: "utf8mb4", force: :cascade do |t|
+    t.text "content", null: false
+    t.string "user_id", limit: 48, null: false
+    t.date "recorded_on", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["event_id"], name: "index_event_records_on_event_id"
+    t.index ["user_id", "recorded_on"], name: "idx_daily_note_unique", unique: true
   end
 
-  create_table "events", charset: "utf8mb4", force: :cascade do |t|
+  create_table "exercises", charset: "utf8mb4", force: :cascade do |t|
     t.string "name", null: false
-    t.integer "order"
-    t.integer "general_order"
-    t.string "user_id", null: false
-    t.bigint "category_id", null: false
+    t.bigint "category_id"
+    t.string "user_id", limit: 48, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["category_id"], name: "index_events_on_category_id"
+    t.index ["category_id"], name: "index_exercises_on_category_id"
   end
 
   create_table "notes", charset: "utf8mb4", force: :cascade do |t|
     t.text "content", null: false
+    t.bigint "resource_id", null: false
+    t.string "resource_kind", null: false
+    t.string "user_id", limit: 48, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["resource_kind", "resource_id"], name: "idx_note_unique", unique: true
   end
 
   create_table "record_tags", charset: "utf8mb4", force: :cascade do |t|
@@ -55,21 +57,20 @@ ActiveRecord::Schema.define(version: 2022_10_25_023856) do
   end
 
   create_table "records", charset: "utf8mb4", force: :cascade do |t|
+    t.string "user_id", limit: 48, null: false
     t.integer "weight"
-    t.integer "reps"
-    t.integer "volume"
-    t.bigint "note_id"
-    t.bigint "event_record_id"
+    t.integer "rep"
+    t.bigint "exercise_id"
+    t.date "executed_on", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["event_record_id"], name: "index_records_on_event_record_id"
-    t.index ["note_id"], name: "index_records_on_note_id"
+    t.index ["exercise_id"], name: "index_records_on_exercise_id"
   end
 
   create_table "tags", charset: "utf8mb4", force: :cascade do |t|
     t.string "name", null: false
-    t.string "color_name", null: false
-    t.string "user_id", null: false
+    t.string "user_id", limit: 48, null: false
+    t.string "color"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

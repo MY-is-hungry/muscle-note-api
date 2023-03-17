@@ -1,5 +1,5 @@
 class Record::DetailSerializer < ActiveModel::Serializer
-  attributes :id, :recorded_at
+  attributes :id, :weight, :rep, :executed_on, :volume, :days_count
 
-  belongs_to :note, serializer: NoteSerializer
+  # belongs_to :note, serializer: NoteSerializer
 end

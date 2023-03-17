@@ -1,16 +1,13 @@
 Rails.application.routes.draw do
   namespace 'api' do
     namespace 'v1' do
-      resources :categories,    only: [:index]
-      resources :events,        only: [:index]
-      resources :records,       only: [:index]
-      resources :event_records, only: [:index] do
-        collection do
-          get 'daily'
-          get 'monthly'
-        end
+      resources :categories, only: [:index]
+      resources :exercises,  only: [:index] do
+        get :with_records, on: :collection
       end
-
+      resources :records,    only: [:index, :create]
     end
+
   end
+  get :health_check, to: 'health_check#index'
 end
