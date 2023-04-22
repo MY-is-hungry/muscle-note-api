@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get '/', to: 'health_check#index'
+
   namespace 'api' do
     namespace 'v1' do
       resources :categories, only: [:index]
@@ -7,7 +9,5 @@ Rails.application.routes.draw do
       end
       resources :records,    only: [:index, :create]
     end
-
   end
-  get :health_check, to: 'health_check#index'
 end
