@@ -1,4 +1,4 @@
-FROM ruby:3.1.1
+FROM --platform=linux/amd64 ruby:3.1.1
 
 ENV APP_PATH /api
 
@@ -15,6 +15,9 @@ RUN bundle install
 
 COPY . $APP_PATH
 
+ENV RAILS_LOG_TO_STDOUT="true"
+ARG ENV
+ENV RAILS_ENV=${ENV}
 # コンテナー起動時に毎回実行されるスクリプトを追加
 COPY entrypoint.sh /usr/bin/
 RUN chmod +x /usr/bin/entrypoint.sh
