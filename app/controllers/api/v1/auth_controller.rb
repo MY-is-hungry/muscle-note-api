@@ -1,6 +1,8 @@
-class Api::V1::BaseController < ApplicationController
+class Api::V1::AuthController < ApplicationController
   include Api::Error
   include Session
+
+  before_action :authenticate
 
   rescue_from StandardError do |e|
     message = Rails.env.production? ? "Unknown error occured." : e.message
