@@ -1,65 +1,80 @@
-id = ENV['DEV_USER_ID']
 
 category_attrs = [
   {
-    name: '胸', user_id: id,
+    name: '胸',
     exercise_attrs: [
-      {name: 'ギロチンベンチプレス', user_id: id},
-      {name: 'ベンチプレス', user_id: id},
-      {name: 'ダンベルプレス', user_id: id},
+      {name: 'ギロチンベンチプレス'},
+      {name: 'ベンチプレス'},
+      {name: 'ダンベルプレス'},
     ],
   },
   {
-    name: '背中', user_id: id,
+    name: '背中',
     exercise_attrs: [
-      {name: 'デッドリフト', user_id: id},
-      {name: '懸垂', user_id: id},
+      {name: 'デッドリフト'},
+      {name: '懸垂'},
     ],
   },
   {
-    name: '脚', user_id: id,
+    name: '脚',
     exercise_attrs: [
-      {name: 'スクワット', user_id: id},
-      {name: 'レッグエクステンション', user_id: id},
+      {name: 'スクワット'},
+      {name: 'レッグエクステンション'},
     ],
   },
   {
-    name: '二頭筋', user_id: id,
+    name: '二頭筋',
     exercise_attrs: [
-      {name: 'バーベルカール', user_id: id},
+      {name: 'バーベルカール'},
     ],
   },
   {
-    name: '三頭筋', user_id: id,
+    name: '三頭筋',
     exercise_attrs: [
-      {name: 'プッシュダウン', user_id: id},
-      {name: 'ナローベンチプレス', user_id: id},
+      {name: 'プッシュダウン'},
+      {name: 'ナローベンチプレス'},
     ],
   },
   {
-    name: '肩', user_id: id,
+    name: '肩',
     exercise_attrs: [
-      {name: 'サイドレイズ', user_id: id},
-      {name: 'オーバーヘッドプレス', user_id: id},
+      {name: 'サイドレイズ'},
+      {name: 'オーバーヘッドプレス'},
     ],
   },
   {
-    name: 'その他', user_id: id,
+    name: 'その他',
     exercise_attrs: [
-      {name: 'デスティーノ', user_id: id},
-      {name: 'レインメーカー', user_id: id},
-      {name: 'フェニックススプラッシュ', user_id: id},
-      {name: '片翼の天使', user_id: id},
-      {name: 'カナディアンデストロイヤー', user_id: id},
-      {name: '昇天・改', user_id: id},
-      {name: 'スターダストプレス', user_id: id},
+      {name: 'ハイフライフロー'},
+      {name: 'スターダストプレス'},
+      {name: 'デスティーノ'},
+      {name: 'レインメーカー'},
+      {name: 'フェニックススプラッシュ'},
+      {name: '片翼の天使'},
+      {name: 'カナディアンデストロイヤー'},
+      {name: '昇天・改'},
     ],
   },
+  {
+    name: 'テスト用カテゴリテストテストテストテストテスト',
+    exercise_attrs: [
+      {name: 'そこそこ長くしてみるよ！そこそこ長くしてみるよ！そこそこ長くしてみるよ！（42文字）'},
+      {name: 'めちゃめちゃめちゃめちゃ長くしてみるよ！めちゃめちゃめちゃめちゃ長くしてみるよ！めちゃめちゃめちゃめちゃ長くしてみるよ！めちゃめちゃめちゃめちゃ長くしてみるよ！（86文字）'},
+      {name: 'み'},
+      {name: 'じか'},
+      {name: 'くして'},
+    ],
+  }
 ]
 
-category_attrs.each do |cate_attr|
-  exercise_attrs = cate_attr.delete(:exercise_attrs)
-  category = Category.find_or_initialize_by(cate_attr)
-  category.exercises.build(exercise_attrs)
+user = User.find_by(uid: ENV['DEV_USER_ID'])
+category_attrs.each do |c_attr|
+  exercise_attrs = c_attr.delete(:exercise_attrs)
+  category = user.categories.find_or_initialize_by(c_attr)
+  exercise_attrs.each do |e_attr|
+    category.exercises.build(e_attr.merge(user_id: user.id))
+  end
   category.save!
+rescue => e
+  p e
 end

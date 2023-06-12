@@ -1,4 +1,4 @@
-class Api::V1::RecordsController < Api::V1::BaseController
+class Api::V1::RecordsController < Api::V1::AuthController
 
   def index
     records = Record.where(user_id: @current_user_id, **selection_range)
